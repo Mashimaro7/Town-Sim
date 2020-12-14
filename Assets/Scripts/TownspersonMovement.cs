@@ -51,6 +51,7 @@ public class TownspersonMovement : MonoBehaviour
 
     void Wander()
     {
+        ChangeState(States.HeadingToLocation);
         float secBetweenWander = Random.Range(secBetweenWanderMinMax.x, secBetweenWanderMinMax.y);
         float randomX = Random.Range(-wanderRange, wanderRange);
         float randomZ = Random.Range(-wanderRange, wanderRange);
@@ -63,7 +64,6 @@ public class TownspersonMovement : MonoBehaviour
 
         wanderTimer = secBetweenWander;
 
-        
     }
 
     public void Move(Vector3 dest)
