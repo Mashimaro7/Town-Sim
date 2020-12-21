@@ -11,6 +11,7 @@ public class BuildingDatabase : MonoBehaviour
         _instance = this;
     }
 
+    [HideInInspector]
     public List<Vector3> foodLocations = new List<Vector3>();
 
     private void Start()
