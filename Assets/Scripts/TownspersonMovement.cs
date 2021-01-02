@@ -16,15 +16,18 @@ public class TownspersonMovement : MonoBehaviour
 {
     NavMeshAgent nav;
     public Vector2 secBetweenWanderMinMax;
-    public float wanderRange;
+    public float wanderRange, secBetweenWander;
     States states;
     float wanderTimer;
+    Animator anim;
+    float currentSpeed;
 
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
-        Wander();
+        anim = GetComponentInChildren<Animator>();
         states = States.Wandering;
+        secBetweenWander = Random.Range(secBetweenWanderMinMax.x, secBetweenWanderMinMax.y);
     }
 
     private void Update()
@@ -35,13 +38,10 @@ public class TownspersonMovement : MonoBehaviour
         }
         else
         {
-            if(states == States.Wandering)
-            Wander();
-            else
-            {
-                float secBetweenWander = Random.Range(secBetweenWanderMinMax.x, secBetweenWanderMinMax.y);
-            }
+            if(states == States.Wandering)Wander();
         }
+        currentSpeed = nav.velocity.magnitude;
+        anim.SetFloat("speed", currentSpeed);
     }
 
     public void ChangeState(States state)
@@ -51,8 +51,10 @@ public class TownspersonMovement : MonoBehaviour
 
     void Wander()
     {
-        ChangeState(States.HeadingToLocation);
-        float secBetweenWander = Random.Range(secBetweenWanderMinMax.x, secBetweenWanderMinMax.y);
+        ChangeState(States.Wandering);
+
+        wanderTimer = secBetweenWander;
+
         float randomX = Random.Range(-wanderRange, wanderRange);
         float randomZ = Random.Range(-wanderRange, wanderRange);
 
@@ -62,7 +64,7 @@ public class TownspersonMovement : MonoBehaviour
             Move(wanderSpot);
         }
 
-        wanderTimer = secBetweenWander;
+        secBetweenWander = Random.Range(secBetweenWanderMinMax.x, secBetweenWanderMinMax.y);
 
     }
 
