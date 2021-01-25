@@ -5,6 +5,7 @@ using UnityEngine;
 public class DateTime : MonoBehaviour
 {
     static DateTime _dateTime;
+    [Range(0,1)]
     public float timeOfDay;
     [SerializeField]
     int maxDayTime = 1200;
@@ -48,6 +49,12 @@ public class DateTime : MonoBehaviour
             timeOfDay = 0;
             dayCount++;
         }
+    }
+
+    private void OnValidate()
+    {
+        sunLight = GameObject.Find("Directional Light").transform;
+        sunLight.transform.rotation = Quaternion.Euler((timeOfDay * 360) - 90, 170, 0);
     }
 
 }
