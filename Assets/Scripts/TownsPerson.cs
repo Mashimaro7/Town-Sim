@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class TownsPerson : MonoBehaviour
 {
-    [Range(0,100)]
-    float hunger = 100, thirst = 100, happiness = 50, money = 50,social = 100,energy = 100;
+    [Range(0f, 100f),SerializeField,LabeledArray(typeof(NeedLabels))]
+    float[] needs, needDrainRates;
+
+    float money = 50;
+
+    int needIndex, needsLength;
+    [SerializeField]
+    int needLevelToSatisfy;
 
     int storeToVisitIndex;
-    public int[] likes;
-    float timer = 1;
 
-    public float hungerRate = 2, thirstRate = 3, energyRate = 1, socialRate = 1, happyRate = 1;
+    public int[] likes;
+    [SerializeField]
+    float timerSet = 5;
+    float timer = 5;
+   
     public TextMeshProUGUI hungerText, thirstText;
 
     TownspersonData townspersonData;
@@ -21,34 +30,26 @@ public class TownsPerson : MonoBehaviour
 
     private void Start()
     {
-        
+        needsLength = needs.Length;
         movement = GetComponent<TownspersonMovement>();
     }
 
     void Update()
     {
-        if(happiness > 0)
+
+
+     if(timer > 0)
         {
-            happiness -= happyRate / Time.deltaTime;
+            timer -= Time.deltaTime;
+        }
+        else
+        {
+            timer = timerSet;
+            DrainStats();
         }
 
-        if (hunger > 0)
-        {
-            hunger -= Time.deltaTime / hungerRate;
-        }
-
-        if (thirst > 0)
-        {
-            thirst -= Time.deltaTime / thirstRate;
-        }
-     
-        if(hunger < 50 && money >= 10)
-        {
-            GoToStore(0);
-        }
-
-        hungerText.text = "Hunger: " + hunger.ToString("F0");
-        thirstText.text = "Thirst: " + thirst.ToString("F0");
+        hungerText.text = "Hunger: " + needs[0].ToString("F0");
+        thirstText.text = "Thirst: " + needs[1].ToString("F0");
     }
 
     void GoToStore(int storeType)
@@ -57,4 +58,43 @@ public class TownsPerson : MonoBehaviour
         movement.Move(BuildingDatabase.instance.FindNearestStore(transform,BuildingDatabase.instance.foodLocations));
                    
     }
+
+    void DrainStats()
+    {
+        for (int i = 0; i < needs.Length; i++)
+        {
+            if (needs[i] > 0)
+            {
+                needs[i] -= (Time.deltaTime * needDrainRates[i]);
+                print(Time.deltaTime * needDrainRates[i]);
+            }
+             if (needs[i] < 0)
+            {
+                needs[i] = 0;
+            }
+        }
+        if(needs[GetLowestNeed()] < needLevelToSatisfy)
+        {
+            
+        }
+    }
+
+    int GetLowestNeed()
+    {
+        int lowestStat = 100;
+        for (int i = 0; i < needs.Length; i++)
+        {
+            if (needs[i] < lowestStat)
+            {
+                lowestStat = i;
+            }
+        }
+        return lowestStat;
+    }
+
+    private void OnValidate()
+    {
+
+    }
+
 }
