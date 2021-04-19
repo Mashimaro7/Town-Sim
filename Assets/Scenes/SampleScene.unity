@@ -1540,23 +1540,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1287862585, guid: 07b944ad1693d5b408e03a0f39540119, type: 3}
       propertyPath: needDrainRates.Array.data[0]
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1287862585, guid: 07b944ad1693d5b408e03a0f39540119, type: 3}
       propertyPath: needDrainRates.Array.data[1]
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1287862585, guid: 07b944ad1693d5b408e03a0f39540119, type: 3}
       propertyPath: needDrainRates.Array.data[2]
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1287862585, guid: 07b944ad1693d5b408e03a0f39540119, type: 3}
       propertyPath: needDrainRates.Array.data[3]
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1287862585, guid: 07b944ad1693d5b408e03a0f39540119, type: 3}
       propertyPath: needDrainRates.Array.data[4]
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1287862585, guid: 07b944ad1693d5b408e03a0f39540119, type: 3}
       propertyPath: needDrainRates.Array.data[5]

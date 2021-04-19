@@ -6,7 +6,7 @@ using TMPro;
 
 public class TownsPerson : MonoBehaviour
 {
-    [Range(0f, 100f),SerializeField,LabeledArray(typeof(NeedLabels))]
+    [LabeledArray(typeof(NeedLabels)),Range(0f, 100f),SerializeField]
     float[] needs, needDrainRates;
 
     float money = 50;
